@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
-* Студент: [Эльмира Мухамеджанова](https://up.htmlacademy.ru/javascript/20/user/1504387).
-* Наставник: `Неизвестно`.
+- Студент: [Эльмира Мухамеджанова](https://up.htmlacademy.ru/javascript/20/user/1504387).
+- Наставник: [Дмитрий Гуляев](https://htmlacademy.ru/profile/id87930).
 
 ---
 
