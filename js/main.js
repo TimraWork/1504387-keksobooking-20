@@ -51,9 +51,9 @@ var getArrayRandomLength = function (array) {
   return array.slice(0, Math.floor(Math.random() * array.length));
 };
 
-var createData = function (offer_obj, pin_obj) {
+var createData = function (offerObj, pinObj) {
   var array = [];
-  for (var i = 0; i < pin_obj.count; i++) {
+  for (var i = 0; i < pinObj.count; i++) {
     array.push(
         {
           'author': {
@@ -61,23 +61,22 @@ var createData = function (offer_obj, pin_obj) {
           },
           'offer': {
             'title': 'Заголовок ' + (i + 1),
-            'address': getRandomItemFromRange(pin_obj.x) + ', ' + getRandomItemFromRange(pin_obj.y),
-            'price': getRandomItemFromRange(offer_obj.price),
-            'type': getRandomItemFromArray(offer_obj.type),
-            'rooms': getRandomItemFromRange(offer_obj.rooms),
-            'guests': getRandomItemFromRange(offer_obj.guests),
-            'checkin': getRandomItemFromArray(offer_obj.times),
-            'features': getArrayRandomLength(offer_obj.features),
+            'address': getRandomItemFromRange(pinObj.x) + ', ' + getRandomItemFromRange(pinObj.y),
+            'price': getRandomItemFromRange(offerObj.price),
+            'type': getRandomItemFromArray(offerObj.type),
+            'rooms': getRandomItemFromRange(offerObj.rooms),
+            'guests': getRandomItemFromRange(offerObj.guests),
+            'checkin': getRandomItemFromArray(offerObj.times),
+            'features': getArrayRandomLength(offerObj.features),
             'description': 'Описание ' + (i + 1),
-            'photos': getArrayRandomLength(offer_obj.photos)
+            'photos': getArrayRandomLength(offerObj.photos)
           },
           'location': {
-            'x': getRandomItemFromRange(pin_obj.x),
-            'y': getRandomItemFromRange(pin_obj.y)
+            'x': getRandomItemFromRange(pinObj.x),
+            'y': getRandomItemFromRange(pinObj.y)
           }
         }
     );
-
   }
   return array;
 };
