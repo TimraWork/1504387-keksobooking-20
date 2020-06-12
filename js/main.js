@@ -44,7 +44,7 @@ var getArrayRandomLength = function (array) {
   return array.slice(0, Math.random() * (array.length + 1));
 };
 
-var createData = function (offerObj, pinObj) {
+var getOffer = function (offerObj, pinObj) {
   var array = [];
   for (var i = 0; i < pinObj.count; i++) {
     array.push(
@@ -162,6 +162,6 @@ var addCardToMap = function (array, countElements) {
   map.insertBefore(fragment, mapFilter);
 };
 
-var data = createData(OFFER_DATA, PIN_DATA);
+var data = getOffer(OFFER_DATA, PIN_DATA);
 addPinsToMap(data);
 addCardToMap(data, 1);
