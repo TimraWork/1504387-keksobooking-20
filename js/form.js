@@ -1,14 +1,8 @@
 'use strict';
 (function () {
-  var mapMainPin = document.querySelector('.map__pin--main');
   var adFormElements = document.querySelectorAll('.ad-form > *');
   var addressInput = document.querySelector('#address');
   var adForm = document.querySelector('.ad-form');
-
-  var getMainPinPosition = function (isFullHeigth) {
-    var pinHeight = isFullHeigth ? window.data.MainPinData.FULL_HEIGHT : window.data.MainPinData.HEIGHT / 2;
-    return (mapMainPin.offsetLeft + Math.round(window.data.MainPinData.WIDTH / 2)) + ', ' + (mapMainPin.offsetTop + pinHeight);
-  };
 
   var houseTypeSelect = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
@@ -76,13 +70,13 @@
   var init = function () {
     adForm.classList.remove('ad-form--disabled');
     window.util.enableFormElements(adFormElements);
-    addressInput.value = getMainPinPosition(true);
+    addressInput.value = window.pinMain.getPosition(true);
   };
 
   var destroy = function () {
     adForm.classList.add('ad-form--disabled');
     window.util.disableFormElements(adFormElements);
-    addressInput.value = getMainPinPosition();
+    addressInput.value = window.pinMain.getPosition();
   };
 
   window.form = {

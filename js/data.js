@@ -28,9 +28,9 @@
   };
 
   var MainPinData = {
-    WIDTH: 60,
-    HEIGHT: 60,
-    FULL_HEIGHT: 80
+    WIDTH: 65,
+    HEIGHT: 65,
+    FULL_HEIGHT: 78
   };
 
   var pinsXRange = [PinData.WIDTH / 2, map.offsetWidth - PinData.WIDTH / 2];
