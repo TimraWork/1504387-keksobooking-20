@@ -49,19 +49,19 @@
       maxXPosition = map.offsetWidth - pinHalfWidth;
 
       if (pinPositionX < -pinHalfWidth) {
-        pinPositionX = -pinHalfWidth + 'px';
+        pinPositionX = -pinHalfWidth;
       }
 
       if (pinPositionX > maxXPosition) {
-        pinPositionX = maxXPosition + 'px';
+        pinPositionX = maxXPosition;
       }
 
       if (pinРositionY < minY) {
-        pinРositionY = minY + 'px';
+        pinРositionY = minY;
       }
 
       if (pinРositionY > maxY) {
-        pinРositionY = maxY + 'px';
+        pinРositionY = maxY;
       }
 
       pinMain.style.left = pinPositionX + 'px';
