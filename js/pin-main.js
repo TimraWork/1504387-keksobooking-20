@@ -15,7 +15,7 @@
   var maxXPosition = 0;
 
   var getPinPosition = function (isFullHeigth) {
-    var pinHeight = isFullHeigth ? window.data.MainPinData.FULL_HEIGHT : window.data.MainPinData.HEIGHT / 2;
+    var pinHeight = isFullHeigth ? window.data.MainPinData.FULL_HEIGHT : Math.round(window.data.MainPinData.HEIGHT / 2);
     return (pinMain.offsetLeft + Math.round(window.data.MainPinData.WIDTH / 2)) + ', ' + (pinMain.offsetTop + pinHeight);
   };
 

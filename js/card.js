@@ -27,11 +27,9 @@
     return imagesList;
   };
 
-  var renderCard = function (offerData) {
+  var renderCard = function (offerData, indexElement) {
     var cardElement = cardTemplate.cloneNode(true);
-
-    cardElement.setAttribute('data-id', offerData.offer.id);
-
+    cardElement.setAttribute('data-id', indexElement);
     cardElement.querySelector('.popup__title').textContent = offerData.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = offerData.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = offerData.offer.price + '₽/ночь';

@@ -3,10 +3,10 @@
 
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var createPin = function (offerData) {
+  var createPin = function (offerData, indexElement) {
     var pinElement = mapPinTemplate.cloneNode(true);
     var pinImage = pinElement.querySelector('img');
-    pinElement.setAttribute('data-id', offerData.offer.id);
+    pinElement.setAttribute('data-id', indexElement);
     pinElement.style.left = (offerData.location.x - window.data.PinData.WIDTH / 2) + 'px';
     pinElement.style.top = (offerData.location.y - window.data.PinData.HEIGHT) + 'px';
     pinImage.src = offerData.author.avatar;
