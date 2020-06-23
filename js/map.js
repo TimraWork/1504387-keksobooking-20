@@ -6,11 +6,13 @@
   var mapFilterContainer = document.querySelector('.map__filters-container');
   var mapFilterElements = document.querySelectorAll('.map__filters > *');
 
-  var addCardToMap = function (offerId) {
+  var offers = [];
+
+  var addCardToMap = function (currentIndex) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.offers.length; i++) {
-      if (offerId === window.data.offers[i].offer.id) {
-        fragment.appendChild(window.card.renderCard(window.data.offers[i]));
+    for (var i = 0; i < offers.length; i++) {
+      if (i.toString() === currentIndex) {
+        fragment.appendChild(window.card.renderCard(offers[i], currentIndex));
         break;
       }
     }
@@ -19,10 +21,26 @@
 
   var addPinsToMap = function () {
     var pins = document.createDocumentFragment();
-    for (var i = 0; i < window.data.offers.length; i++) {
-      pins.appendChild(window.pin.createPin(window.data.offers[i]));
+    for (var i = 0; i < offers.length; i++) {
+      pins.appendChild(window.pin.createPin(offers[i], i));
     }
     mapPinsList.appendChild(pins);
+  };
+
+  var loadOffers = function () {
+    var onLoad = function (response) {
+      offers = response;
+      addPinsToMap();
+    };
+
+    var onError = function (errorMessage) {
+      var node = document.createElement('div');
+      node.style = 'text-align: center; background-color: rgba(255, 86, 53, 0.7); color: white; font-size: 20px; padding: 10px; margin: 0 0 20px;';
+      node.textContent = errorMessage;
+      mapFilterContainer.insertAdjacentElement('afterbegin', node);
+    };
+
+    window.backend.load(onLoad, onError);
   };
 
   var removePinsFromMap = function () {
@@ -69,7 +87,7 @@
   };
 
   var init = function () {
-    addPinsToMap(window.data.offers);
+    loadOffers();
     window.util.enableFormElements(mapFilterElements);
     map.classList.remove('map--faded');
     map.addEventListener('click', onMapEvent);
@@ -77,7 +95,7 @@
   };
 
   var destroy = function () {
-    removePinsFromMap(window.data.offers);
+    removePinsFromMap(window.dataItem);
     window.util.disableFormElements(mapFilterElements);
     map.classList.add('map--faded');
     map.removeEventListener('click', onMapEvent);
