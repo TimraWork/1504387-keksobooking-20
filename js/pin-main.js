@@ -19,6 +19,11 @@
     return (pinMain.offsetLeft + Math.round(window.data.MainPinData.WIDTH / 2)) + ', ' + (pinMain.offsetTop + pinHeight);
   };
 
+  var setToStart = function () {
+    pinMain.style.left = '570px';
+    pinMain.style.top = '375px';
+  };
+
   var onMainPinMove = function (evt) {
     evt.preventDefault();
 
@@ -81,6 +86,7 @@
   pinMain.addEventListener('mousedown', onMainPinMove);
 
   window.pinMain = {
-    getPosition: getPinPosition
+    getPosition: getPinPosition,
+    setToStart: setToStart
   };
 })();

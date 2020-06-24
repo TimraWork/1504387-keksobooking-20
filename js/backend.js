@@ -2,7 +2,8 @@
 (function () {
 
   var Urls = {
-    LOAD: 'https://javascript.pages.academy/keksobooking/data'
+    LOAD: 'https://javascript.pages.academy/keksobooking/data',
+    SAVE: 'https://javascript.pages.academy/keksobooking'
   };
 
   var ajax = function (params) {
@@ -39,8 +40,19 @@
     });
   };
 
+  var save = function (data, onLoad, onError) {
+    ajax({
+      url: Urls.SAVE,
+      method: 'POST',
+      data: data,
+      onLoad: onLoad,
+      onError: onError
+    });
+  };
+
   window.backend = {
-    load: load
+    load: load,
+    save: save
   };
 
 })();
