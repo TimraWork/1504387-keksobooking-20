@@ -1,8 +1,8 @@
 'use strict';
 (function () {
+  var adForm = document.querySelector('.ad-form');
   var adFormElements = document.querySelectorAll('.ad-form > *');
   var addressInput = document.querySelector('#address');
-  var adForm = document.querySelector('.ad-form');
 
   var houseTypeSelect = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
@@ -67,6 +67,55 @@
   };
   roomCountSelect.addEventListener('change', onRoomCountChange);
 
+  var mainElement = document.querySelector('main');
+
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  var messageElement;
+
+  var createMessage = function () {
+    messageElement.addEventListener('click', onMessageClose);
+    document.body.addEventListener('keydown', onMessageClose);
+    mainElement.insertAdjacentElement('afterbegin', messageElement);
+  };
+
+  var onMessageClose = function (evt) {
+    if (evt.key === 'Escape' || evt.button === 0) {
+      messageElement.removeEventListener('click', onMessageClose);
+      document.body.removeEventListener('keydown', onMessageClose);
+      messageElement.remove();
+    }
+  };
+
+  var onLoad = function () {
+    messageElement = successTemplate.cloneNode(true);
+    createMessage();
+    window.main.disablePage();
+  };
+
+  var onError = function () {
+    messageElement = errorTemplate.cloneNode(true);
+    createMessage();
+  };
+
+  adForm.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(adForm), onLoad, onError);
+    evt.preventDefault();
+  });
+
+  var adFormReset = function () {
+    adForm.reset();
+    window.pinMain.setToStart();
+    addressInput.value = window.pinMain.getPosition();
+  };
+
+  var adFormResetBtn = document.querySelector('.ad-form__reset');
+
+  adFormResetBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    adFormReset();
+  });
+
   var init = function () {
     adForm.classList.remove('ad-form--disabled');
     window.util.enableFormElements(adFormElements);
@@ -76,7 +125,7 @@
   var destroy = function () {
     adForm.classList.add('ad-form--disabled');
     window.util.disableFormElements(adFormElements);
-    addressInput.value = window.pinMain.getPosition();
+    adFormReset();
   };
 
   window.form = {

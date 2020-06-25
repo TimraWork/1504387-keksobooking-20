@@ -5,6 +5,8 @@
   var mapPinsList = document.querySelector('.map__pins');
   var mapFilterContainer = document.querySelector('.map__filters-container');
   var mapFilterElements = document.querySelectorAll('.map__filters > *');
+  var filterForm = document.querySelector('.map__filters');
+
 
   var offers = [];
 
@@ -44,13 +46,13 @@
   };
 
   var removePinsFromMap = function () {
-    var children = mapPinsList.querySelectorAll('.map__pin:not(.map__pin--main)');
+    var children = mapPinsList.querySelectorAll('button.map__pin:not(.map__pin--main)');
     for (var i = 0; i < children.length; i++) {
-      mapPinsList.innerHTML = '';
+      children[i].remove();
     }
   };
 
-  var openPopup = function (offerId) {
+  var openCard = function (offerId) {
     var currentPopup = document.querySelector('.map .map__card');
     if (currentPopup) {
       var currentPopupId = currentPopup.getAttribute('data-id');
@@ -63,7 +65,7 @@
     }
   };
 
-  var closePopup = function () {
+  var closeCard = function () {
     var currentPopup = document.querySelector('.map .map__card');
     if (currentPopup) {
       currentPopup.remove();
@@ -76,13 +78,13 @@
 
     if (pinBtn && evt.type !== 'keydown') {
       var offerId = pinBtn.getAttribute('data-id');
-      openPopup(offerId);
+      openCard(offerId);
     }
 
     var isBtnClosePopup = targetElement.matches('.popup__close');
     var isBtnEsc = evt.key === 'Escape' ? true : false;
     if (isBtnClosePopup || isBtnEsc) {
-      closePopup(evt, targetElement);
+      closeCard(evt, targetElement);
     }
   };
 
@@ -96,6 +98,8 @@
 
   var destroy = function () {
     removePinsFromMap(window.dataItem);
+    closeCard();
+    filterForm.reset();
     window.util.disableFormElements(mapFilterElements);
     map.classList.add('map--faded');
     map.removeEventListener('click', onMapEvent);

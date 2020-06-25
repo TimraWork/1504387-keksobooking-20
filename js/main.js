@@ -23,4 +23,8 @@
   mapMainPin.addEventListener('mousedown', enablePage);
   mapMainPin.addEventListener('keydown', enablePage);
 
+  window.main = {
+    disablePage: disablePage
+  };
+
 })();
