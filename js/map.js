@@ -9,9 +9,9 @@
 
   var addPinsToMap = function (items) {
     offers = items;
-    var countPins = offers.length;
-    var maxCountPins = window.data.PinData.COUNT;
-    var pinsCount = countPins >= 0 && countPins <= maxCountPins ? countPins : maxCountPins;
+    var count = offers.length;
+    var maxCount = window.data.PinData.COUNT;
+    var pinsCount = count <= maxCount ? count : maxCount;
     var pins = document.createDocumentFragment();
 
     for (var i = 0; i < pinsCount; i++) {
