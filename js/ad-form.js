@@ -7,18 +7,8 @@
   var houseTypeSelect = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
 
-  var getHouseTypeMinPrice = function () {
-    var minPrice = 0;
-    for (var i = 0; i < window.data.OffersData.TYPES.length; i++) {
-      if (window.data.OffersData.TYPES[i].NAME === houseTypeSelect.value) {
-        minPrice = window.data.OffersData.TYPES[i].MIN_PRICE;
-      }
-    }
-    return minPrice;
-  };
-
   var onHouseTypeChange = function () {
-    var minPrice = getHouseTypeMinPrice();
+    var minPrice = window.data.OffersData.getTypeValue(houseTypeSelect.value, 'MIN_PRICE');
     priceInput.min = minPrice;
     priceInput.placeholder = minPrice;
   };
@@ -128,7 +118,7 @@
     adFormReset();
   };
 
-  window.form = {
+  window.adForm = {
     init: init,
     destroy: destroy
   };

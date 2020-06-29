@@ -12,6 +12,12 @@
       {NAME: 'house', TITLE: 'Дом', MIN_PRICE: 5000},
       {NAME: 'bungalo', TITLE: 'Бунгало', MIN_PRICE: 0}
     ],
+    getTypeValue: function (name, value) {
+      var findElement = this.TYPES.find(function (element) {
+        return element.NAME === name;
+      });
+      return findElement[value];
+    },
     TIMES: ['12:00', '13:00', '14:00'],
     FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
     DESCRIPTION: ['Описание 1', 'Описание 2', 'Описание 4', 'Описание 5', 'Описание 6', 'Описание 7', 'Описание 8'],
@@ -19,7 +25,7 @@
   };
 
   var PinData = {
-    COUNT: 8,
+    COUNT: 5,
     WIDTH: 50,
     HEIGHT: 70,
     Y: [130, 630]
