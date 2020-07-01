@@ -24,33 +24,32 @@
 
   var filterOffers = function () {
     filteredOffers = loadedOffers;
+    var i;
 
-    filterSelects.forEach(function (select) {
-      if (select.value === 'any') {
-        return;
+    for (i = 0; i < filterSelects.length; i++) {
+      if (filterSelects[i].value === 'any') {
+        continue;
       }
 
-      if (select.name === 'housing-price') {
+      if (filterSelects[i].name === 'housing-price') {
         filteredOffers = filteredOffers.filter(function (item) {
-          return filterByPrice(item.offer.price, select.value);
+          return filterByPrice(item.offer.price, filterSelects[i].value);
         });
       } else {
         filteredOffers = filteredOffers.filter(function (item) {
-          var value = select.name.split('-')[1];
-          return item.offer[value].toString() === select.value;
+          var value = filterSelects[i].name.split('-')[1];
+          return item.offer[value].toString() === filterSelects[i].value;
         });
       }
-    });
+    }
 
-    filterCheckboxes.forEach(function (checkbox) {
-      if (!checkbox.checked) {
-        return;
+    for (i = 0; i < filterCheckboxes.length; i++) {
+      if (filterCheckboxes[i].checked) {
+        filteredOffers = filteredOffers.filter(function (item) {
+          return item.offer.features.indexOf(filterCheckboxes[i].value) !== -1;
+        });
       }
-
-      filteredOffers = filteredOffers.filter(function (item) {
-        return item.offer.features.indexOf(checkbox.value) !== -1;
-      });
-    });
+    }
 
     return filteredOffers;
   };
