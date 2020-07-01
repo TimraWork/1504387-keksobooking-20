@@ -10,19 +10,16 @@
   var filteredOffers = [];
 
   var filterByPrice = function (price, range) {
-    var result;
     switch (range) {
       case 'low':
-        result = price < 10000;
-        break;
+        return price < 10000;
       case 'middle':
-        result = price >= 10000 && price <= 50000;
-        break;
+        return price >= 10000 && price <= 50000;
       case 'high':
-        result = price > 50000;
-        break;
+        return price > 50000;
+      default:
+        return true;
     }
-    return result;
   };
 
   var filterOffers = function () {
