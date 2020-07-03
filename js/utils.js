@@ -1,5 +1,20 @@
 'use strict';
 (function () {
+  var DEBOUNCE_INTERVAL = 500;
+
+  var debounce = function (cb) {
+    var lastTimeout = null;
+
+    return function () {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, arguments);
+      }, DEBOUNCE_INTERVAL);
+    };
+  };
+
   var getRandomItemFromArray = function (array) {
     return array[Math.floor(Math.random() * (array.length))];
   };
@@ -35,7 +50,8 @@
     }
   };
 
-  window.util = {
+  window.utils = {
+    debounce: debounce,
     getRandomItemFromArray: getRandomItemFromArray,
     getRandomItemFromRange: getRandomItemFromRange,
     getArrayRandomLength: getArrayRandomLength,

@@ -50,24 +50,22 @@
         });
       }
     }
-
     return filteredOffers;
   };
 
-  var onFilterFormChange = function (evt) {
+  var onFilterFormChange = window.utils.debounce(function (evt) {
     window.map.updatePins(filterOffers(evt));
-  };
+  });
 
   var init = function (offers) {
     loadedOffers = offers;
-
-    window.util.enableFormElements(mapFilterElements);
+    window.utils.enableFormElements(mapFilterElements);
     filterForm.addEventListener('change', onFilterFormChange);
     window.map.updatePins(filterOffers());
   };
 
   var destroy = function () {
-    window.util.disableFormElements(mapFilterElements);
+    window.utils.disableFormElements(mapFilterElements);
     filterForm.reset();
     filterForm.removeEventListener('change', onFilterFormChange);
   };

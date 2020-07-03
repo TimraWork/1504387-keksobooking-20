@@ -86,7 +86,7 @@
 
   var onMapEvent = function (evt) {
     var targetElement = evt.target;
-    var pinBtn = window.util.getClosestElement(targetElement, '.map__pin:not(.map__pin--main)');
+    var pinBtn = window.utils.getClosestElement(targetElement, '.map__pin:not(.map__pin--main)');
 
     if (pinBtn && evt.type !== 'keydown') {
       var offerId = pinBtn.getAttribute('data-id');

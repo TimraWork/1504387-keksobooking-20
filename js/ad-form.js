@@ -96,6 +96,7 @@
   var adFormReset = function () {
     adForm.reset();
     window.pinMain.setToStart();
+    window.adFormPhoto.reset();
     addressInput.value = window.pinMain.getPosition();
   };
 
@@ -108,13 +109,15 @@
 
   var init = function () {
     adForm.classList.remove('ad-form--disabled');
-    window.util.enableFormElements(adFormElements);
+    window.utils.enableFormElements(adFormElements);
+    window.adFormPhoto.initHandlers();
     addressInput.value = window.pinMain.getPosition(true);
   };
 
   var destroy = function () {
     adForm.classList.add('ad-form--disabled');
-    window.util.disableFormElements(adFormElements);
+    window.utils.disableFormElements(adFormElements);
+    window.adFormPhoto.destroyHandlers();
     adFormReset();
   };
 
