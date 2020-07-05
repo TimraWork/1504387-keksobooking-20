@@ -45,13 +45,11 @@
         guestsOption.removeAttribute('disabled');
       } else
 
-        if (
-          roomsValue !== 100
-          && roomsValue >= guestsValue
-          && guestsValue !== 0
-        ) {
-          guestsOption.removeAttribute('disabled');
-        }
+      if (roomsValue !== 100 &&
+          roomsValue >= guestsValue
+          && guestsValue !== 0) {
+        guestsOption.removeAttribute('disabled');
+      }
     }
     guestsSelect.value = guestsSelect.querySelector('option:not([disabled])').value;
   };
