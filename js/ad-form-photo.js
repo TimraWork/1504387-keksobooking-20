@@ -30,67 +30,53 @@
     togglePhoto(previewImg);
   };
 
-  var showError = function (error) {
-    var node = document.createElement('div');
-    node.style = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background:#ff5635; padding: 10px 50px; color: white; font-size: 20px; margin-bottom: 10px; border-radius: 5px;';
-    node.textContent = error;
-    document.body.insertAdjacentElement('afterEnd', node);
-    setTimeout(function () {
-      node.remove();
-    }, 3000);
-  };
-
-  var adFormPhoto = function (fileInput, preview) {
+  var handlePhoto = function (fileInput, preview) {
     var file = fileInput.files[0];
 
     if (file) {
       var fileName = file.name.toLowerCase();
-      var matches = FILE_TYPES.some(function (it) {
-        return fileName.endsWith(it);
+      var matches = FILE_TYPES.some(function (extension) {
+        return fileName.endsWith(extension);
       });
 
-      try {
-
-        if (matches) {
-          var reader = new FileReader();
-          reader.onload = function () {
-            setPhoto(preview, reader);
-          };
-          reader.readAsDataURL(file);
-        } else {
-          resetPhoto(preview);
-          throw Error('Загрузите изображение формата gif, jpg, jpeg или png');
-        }
-      } catch (e) {
+      if (matches) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          setPhoto(preview, reader);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        resetPhoto(preview);
         fileInput.value = '';
-        showError(e.message);
+        window.utils.showErrorNotification('Загрузите изображение формата gif, jpg, jpeg или png');
       }
-
     } else {
       resetPhoto(preview);
     }
   };
 
   var onAvatarChange = function () {
-    adFormPhoto(avatarInput, avatarPreview);
+    handlePhoto(avatarInput, avatarPreview);
   };
 
   var onPhotoChange = function () {
-    adFormPhoto(photoInput, photoPreview);
+    handlePhoto(photoInput, photoPreview);
+  };
+
+  var init = function () {
+    avatarInput.addEventListener('change', onAvatarChange);
+    photoInput.addEventListener('change', onPhotoChange);
+  };
+
+  var destroy = function () {
+    resetPhoto(avatarPreview);
+    resetPhoto(photoPreview);
+    avatarInput.removeEventListener('change', onAvatarChange);
+    photoInput.removeEventListener('change', onPhotoChange);
   };
 
   window.adFormPhoto = {
-    reset: function () {
-      resetPhoto(avatarPreview);
-      resetPhoto(photoPreview);
-    },
-    initHandlers: function () {
-      avatarInput.addEventListener('change', onAvatarChange);
-      photoInput.addEventListener('change', onPhotoChange);
-    },
-    destroyHandlers: function () {
-      avatarInput.removeEventListener('change', onAvatarChange);
-      photoInput.removeEventListener('change', onPhotoChange);
-    }
+    init: init,
+    destroy: destroy
   };
 })();

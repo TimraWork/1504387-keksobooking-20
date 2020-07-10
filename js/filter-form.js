@@ -1,25 +1,23 @@
 'use strict';
+
 (function () {
+  var NON_FILTERED_VALUE = 'any';
+  var FILTER_PRICE_NAME = 'housing-price';
+
   var filterForm = document.querySelector('.map__filters');
   var mapFilterElements = document.querySelectorAll('.map__filters > *');
-
   var filterSelects = filterForm.querySelectorAll('select.map__filter');
   var filterCheckboxes = filterForm.querySelectorAll('input.map__checkbox');
-
+  var priceRange = {
+    'low': [0, 9999],
+    'middle': [10000, 50000],
+    'high': [50001, Infinity],
+  };
   var loadedOffers = [];
   var filteredOffers = [];
 
   var filterByPrice = function (price, range) {
-    switch (range) {
-      case 'low':
-        return price < 10000;
-      case 'middle':
-        return price >= 10000 && price <= 50000;
-      case 'high':
-        return price > 50000;
-      default:
-        return true;
-    }
+    return price >= priceRange[range][0] && price <= priceRange[range][1];
   };
 
   var filterOffers = function () {
@@ -27,11 +25,11 @@
     var i;
 
     for (i = 0; i < filterSelects.length; i++) {
-      if (filterSelects[i].value === 'any') {
+      if (filterSelects[i].value === NON_FILTERED_VALUE) {
         continue;
       }
 
-      if (filterSelects[i].name === 'housing-price') {
+      if (filterSelects[i].name === FILTER_PRICE_NAME) {
         filteredOffers = filteredOffers.filter(function (item) {
           return filterByPrice(item.offer.price, filterSelects[i].value);
         });
@@ -50,6 +48,7 @@
         });
       }
     }
+
     return filteredOffers;
   };
 
