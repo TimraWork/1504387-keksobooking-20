@@ -8,6 +8,7 @@
     ENTER: 13,
     ESCAPE: 27
   };
+
   var popupContainer = document.querySelector('main');
   var popup;
 

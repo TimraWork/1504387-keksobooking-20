@@ -2,13 +2,13 @@
 
 (function () {
   var enable = function () {
-    window.adForm.init();
     window.map.init();
+    window.adForm.init();
   };
 
   var disable = function () {
-    window.adForm.destroy();
     window.map.destroy();
+    window.adForm.destroy();
   };
 
   disable();

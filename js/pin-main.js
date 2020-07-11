@@ -17,14 +17,6 @@
     y: pin.offsetTop
   };
 
-  var getPinPosition = function (isFullHeigth) {
-    var pinHeight = isFullHeigth ? PinData.FULL_HEIGHT : Math.round(PinData.HEIGHT / 2);
-    var pinX = pin.offsetLeft + Math.round(PinData.WIDTH / 2);
-    var pinY = pin.offsetTop + pinHeight;
-
-    return pinX + ', ' + pinY;
-  };
-
   var onMainPinMousedown = function (evt) {
     if (window.utils.isMouseLeftClicked(evt)) {
       window.page.enable();
@@ -37,21 +29,12 @@
     }
   };
 
-  var init = function () {
-    pin.removeEventListener('mousedown', onMainPinMousedown);
-    pin.removeEventListener('keydown', onMainPinKeydown);
-  };
+  var setAddress = function (isDefault) {
+    var pinCoordsY = isDefault ? Math.round(PinData.HEIGHT / 2) : PinData.FULL_HEIGHT;
+    var pinX = pin.offsetLeft + Math.round(PinData.WIDTH / 2);
+    var pinY = pin.offsetTop + pinCoordsY;
 
-  var reset = function () {
-    pin.setAttribute('style', 'left: ' + defaultPosition.x + 'px; top: ' + defaultPosition.y + 'px;');
-    addressInput.setAttribute('value', getPinPosition());
-
-    pin.addEventListener('mousedown', onMainPinMousedown);
-    pin.addEventListener('keydown', onMainPinKeydown);
-  };
-
-  var setAddress = function () {
-    addressInput.setAttribute('value', getPinPosition(true));
+    addressInput.setAttribute('value', pinX + ', ' + pinY);
   };
 
   window.move.init({
@@ -62,6 +45,20 @@
     maxY: PinData.Y_RANGE[1],
     callback: setAddress
   });
+
+  var init = function () {
+    setAddress();
+    pin.removeEventListener('mousedown', onMainPinMousedown);
+    pin.removeEventListener('keydown', onMainPinKeydown);
+  };
+
+  var reset = function () {
+    pin.setAttribute('style', 'left: ' + defaultPosition.x + 'px; top: ' + defaultPosition.y + 'px;');
+    setAddress(true);
+
+    pin.addEventListener('mousedown', onMainPinMousedown);
+    pin.addEventListener('keydown', onMainPinKeydown);
+  };
 
   window.pinMain = {
     init: init,

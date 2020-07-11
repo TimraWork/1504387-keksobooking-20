@@ -13,8 +13,6 @@
   var guestsSelectOptions = guestsSelect.querySelectorAll('option');
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-  var template;
-
   var houseTypeMinPrice = {
     'bungalo': 0,
     'flat': 1000,
@@ -27,6 +25,7 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
+  var template;
 
   var syncPriceByHouseType = function () {
     var minPrice = houseTypeMinPrice[houseTypeSelect.value];
@@ -61,6 +60,7 @@
       } else {
         guestOption.setAttribute('disabled', matches);
       }
+
     });
 
     guestsSelect.value = guestsSelect.querySelector('option:not([disabled])').value;

@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var CardImage = {
+    WIDTH: 45,
+    HEIGHT: 40,
+  };
+
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
   var houseTypeTitle = {
     'bungalo': 'Бунгало',
@@ -29,8 +34,8 @@
       image.classList.add('popup__photo');
       image.setAttribute('src', url);
       image.setAttribute('alt', '');
-      image.setAttribute('width', 45);
-      image.setAttribute('height', 40);
+      image.setAttribute('width', CardImage.WIDTH);
+      image.setAttribute('height', CardImage.HEIGHT);
       imagesList.appendChild(image);
     });
 
@@ -39,8 +44,10 @@
 
   var showOptionalProperties = function (element, selector, data) {
     var node = element.querySelector(selector);
+
     if (data.length || data.children.length) {
       node.innerHTML = '';
+
       if (typeof data === 'string') {
         node.textContent = data;
       } else {
