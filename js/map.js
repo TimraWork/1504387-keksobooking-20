@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var PINS_COUNT = 5;
+  var MAX_PINS_COUNT = 5;
 
   var map = document.querySelector('.map');
   var mapPinsList = document.querySelector('.map__pins');
@@ -10,10 +10,11 @@
 
   var addPinsToMap = function () {
     var pins = document.createDocumentFragment();
+    var pinsCount = Math.min(offers.length, MAX_PINS_COUNT);
 
-    for (var i = 0; i < Math.min(offers.length, PINS_COUNT); i++) {
-      pins.appendChild(window.pin.create(offers[i], i));
-    }
+    offers.slice(0, pinsCount).forEach(function (offer, i) {
+      pins.appendChild(window.pin.create(offer, i));
+    });
 
     mapPinsList.appendChild(pins);
     initPinsHandlers();
@@ -35,11 +36,11 @@
     var pins = getPinsElements();
 
     pins.forEach(function (pin) {
-      pin.onclick = function (evt) {
+      pin.addEventListener('click', function (evt) {
         var pinBtn = window.utils.getClosestElement(evt.target, '.map__pin:not(.map__pin--main)');
         var offerId = pinBtn.getAttribute('data-id');
         openCard(offerId);
-      };
+      });
     });
   };
 
@@ -82,15 +83,15 @@
   var initCardHandlers = function () {
     var btnClosePopup = map.querySelector('.popup__close');
 
-    btnClosePopup.onclick = function () {
+    btnClosePopup.addEventListener('click', function () {
       closeCard();
-    };
+    });
 
-    btnClosePopup.onkeydown = function (evt) {
+    btnClosePopup.addEventListener('keydown', function (evt) {
       if (window.utils.isEnterPressed(evt)) {
         closeCard();
       }
-    };
+    });
 
     document.addEventListener('keydown', onDocumentClick);
   };

@@ -8,26 +8,26 @@
     SAVE: 'https://javascript.pages.academy/keksobooking'
   };
 
-  var ajax = function (params) {
+  var sendRequest = function (params) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
-    xhr.onload = function () {
+    xhr.addEventListener('load', function () {
       if (xhr.status === STATUS_CODE_SUCCESS) {
         params.onLoad(xhr.response);
       } else {
         params.onError('Данные не загружены. Код ошибки: ' + xhr.status);
       }
-    };
+    });
 
-    xhr.onerror = function () {
+    xhr.addEventListener('error', function () {
       params.onError('Ошибка соединения');
-    };
+    });
 
     xhr.timeout = TIMEOUT;
-    xhr.ontimeout = function () {
+    xhr.addEventListener('timeout', function () {
       params.onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    };
+    });
 
     xhr.open(params.method, params.url);
 
@@ -39,7 +39,7 @@
   };
 
   var load = function (onLoad, onError) {
-    ajax({
+    sendRequest({
       url: Url.LOAD,
       method: 'GET',
       onLoad: onLoad,
@@ -48,7 +48,7 @@
   };
 
   var save = function (data, onLoad, onError) {
-    ajax({
+    sendRequest({
       url: Url.SAVE,
       method: 'POST',
       data: data,

@@ -41,8 +41,8 @@
     element: pin,
     minX: -pinHalfWidth,
     maxX: map.offsetWidth - pinHalfWidth,
-    minY: PinData.Y_RANGE[0],
-    maxY: PinData.Y_RANGE[1],
+    minY: PinData.Y_RANGE[0] - PinData.FULL_HEIGHT,
+    maxY: PinData.Y_RANGE[1] - PinData.FULL_HEIGHT,
     callback: setAddress
   });
 

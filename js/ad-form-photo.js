@@ -41,9 +41,9 @@
 
       if (matches) {
         var reader = new FileReader();
-        reader.onload = function () {
+        reader.addEventListener('load', function () {
           setPhoto(preview, reader);
-        };
+        });
         reader.readAsDataURL(file);
       } else {
         resetPhoto(preview);
